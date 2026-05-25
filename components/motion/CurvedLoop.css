@@ -1,0 +1,67 @@
+/* React Bits CurvedLoop */
+.curved-loop-jacket {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.curved-loop-svg {
+  user-select: none;
+  width: 100%;
+  aspect-ratio: 100 / 12;
+  overflow: visible;
+  display: block;
+  font-size: 6rem;
+  fill: var(--nova-ink);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+.curved-loop-text {
+  fill: var(--nova-ink);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.curved-loop-accent {
+  fill: var(--nova-optic-blue);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Debajo del titular — ancho completo, poco margen */
+.curved-loop-jacket--marquee {
+  width: 100vw;
+  max-width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  margin-top: 0;
+  margin-bottom: 0;
+  min-height: clamp(56px, 12vw, 120px);
+  padding: 0;
+  pointer-events: auto;
+}
+
+.curved-loop-jacket--marquee .curved-loop-svg {
+  font-size: clamp(2.75rem, 11vw, 6rem);
+  height: auto;
+  min-height: clamp(48px, 10vw, 100px);
+}
+
+@media (max-width: 640px) {
+  .curved-loop-jacket--marquee .curved-loop-svg {
+    font-size: clamp(2rem, 12vw, 3.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .curved-loop-jacket--marquee {
+    pointer-events: none;
+  }
+}

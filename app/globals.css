@@ -1,27 +1,583 @@
+@import "../styles/tokens.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
   }
-}
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  html {
+    scroll-behavior: auto;
+  }
+
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: var(--text-base);
+    line-height: 1.65;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+
+  ::selection {
+    background-color: rgba(168, 212, 245, 0.45);
+    color: var(--nova-ink);
+  }
+
+  :focus-visible {
+    outline: 1.5px solid var(--nova-cyan-mist);
+    outline-offset: 4px;
+  }
+
+  @keyframes optic-sparkle {
+    0%,
+    100% {
+      opacity: 0.15;
+      transform: scale(0.75);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.35);
+    }
+  }
+
+  @keyframes optic-drift {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(24px, -20px) scale(1.05);
+    }
+  }
+
+  @keyframes optic-drift-slow {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(-18px, 16px) scale(1.08);
+    }
+  }
+
+  @keyframes optic-shimmer {
+    0%,
+    100% {
+      opacity: 0.25;
+    }
+    50% {
+      opacity: 0.85;
+    }
+  }
+
+  .animate-optic-sparkle {
+    animation: optic-sparkle 4s ease-in-out infinite;
+  }
+
+  .animate-optic-drift {
+    animation: optic-drift 20s ease-in-out infinite;
+  }
+
+  .animate-optic-drift-slow {
+    animation: optic-drift-slow 26s ease-in-out infinite;
+  }
+
+  .animate-optic-shimmer {
+    animation: optic-shimmer 5s ease-in-out infinite;
+  }
+
+  .text-optic-glow {
+    text-shadow:
+      0 0 24px rgba(168, 212, 245, 0.35),
+      0 0 48px rgba(126, 184, 232, 0.15);
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+    background: var(--nova-bg);
+  }
+
+  ::view-transition-group(root) {
+    z-index: 50;
+  }
+
+  html[data-magicui-theme-vt="active"]::view-transition-group(root) {
+    animation-duration: var(--magicui-theme-toggle-vt-duration);
+  }
+
+  .dark ::selection {
+    background-color: rgba(126, 184, 232, 0.35);
+    color: var(--nova-fg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    .animate-optic-sparkle,
+    .animate-optic-drift,
+    .animate-optic-drift-slow,
+    .animate-optic-shimmer {
+      animation: none !important;
+      opacity: 0.35 !important;
+    }
+  }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .text-accent {
+    @apply font-semibold text-optic;
+  }
+
+  /* Texto primario legible en modo oscuro (ink queda para fondos) */
+  .dark .text-ink {
+    color: var(--nova-fg);
+  }
+
+  /* Texto claro sobre fondos oscuros (reserva, parallax, tabs activos) */
+  .text-on-dark {
+    color: var(--nova-reserve-fg);
+  }
+
+  /* Texto oscuro sobre cajas claras — no cambia con el tema */
+  .text-on-light {
+    color: var(--nova-on-light-text);
+  }
+
+  /* En secciones oscuras fijas, subir contraste de textos semánticos */
+  .bg-reserve .text-muted,
+  .bg-surface-dark .text-muted,
+  .bg-ink .text-muted {
+    color: color-mix(in srgb, var(--nova-reserve-fg) 88%, transparent);
+  }
+
+  .bg-reserve .text-subtle,
+  .bg-surface-dark .text-subtle,
+  .bg-ink .text-subtle {
+    color: color-mix(in srgb, var(--nova-reserve-fg) 82%, transparent);
+  }
+
+  .bg-reserve .text-on-dark,
+  .bg-reserve .text-reserve-fg,
+  .bg-surface-dark .text-on-dark,
+  .bg-ink .text-on-dark {
+    color: var(--nova-reserve-fg);
+  }
+
+  .text-on-dark-accent {
+    color: var(--nova-on-dark-accent);
+  }
+
+  .text-on-dark-secondary {
+    color: var(--nova-on-dark-secondary);
+  }
+
+  .text-eyebrow-on-dark {
+    color: var(--nova-on-dark-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* Eyebrows / labels — WCAG AA sobre paper y cream */
+  .text-eyebrow {
+    color: var(--nova-fg-subtle);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .dark .text-eyebrow {
+    color: var(--nova-fg-muted);
   }
 }
+
+@layer components {
+  /* Popup perfil profesional — ficha clínica premium */
+  .profesional-profile-overlay {
+    @apply fixed inset-0 z-[120] flex items-center justify-center overflow-hidden p-4 sm:p-6;
+    animation: profesional-overlay-in 0.35s var(--ease-luxury) both;
+  }
+
+  @keyframes profesional-overlay-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes profesional-panel-in {
+    from {
+      opacity: 0;
+      transform: translateY(16px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .profesional-profile-backdrop {
+    @apply absolute inset-0 cursor-default border-0;
+    background: rgba(10, 35, 66, 0.52);
+    backdrop-filter: blur(22px) saturate(1.25);
+    -webkit-backdrop-filter: blur(22px) saturate(1.25);
+  }
+
+  .profesional-profile-panel {
+    @apply relative z-10 flex min-h-0 w-full max-w-lg flex-col overflow-hidden rounded-[1.35rem] shadow-[0_32px_80px_-24px_rgba(10,35,66,0.45),0_0_0_1px_rgba(30,77,140,0.12)];
+    max-height: min(90svh, 680px);
+    animation: profesional-panel-in 0.45s var(--ease-luxury) 0.05s both;
+    /* Cuerpo del modal: ficha clínica siempre en tonos claros (WCAG AA) */
+    --prof-body-bg: #faf8f4;
+    --prof-body-cream: #f0ece4;
+    --prof-body-fg: #0a0a0b;
+    --prof-body-muted: #3d4249;
+    --prof-body-label: #4a4f58;
+    --prof-body-line: rgba(10, 10, 11, 0.12);
+    --prof-body-optic: #1a4a85;
+    /* Cabecera: gradiente fijo, texto claro con contraste verificado */
+    --prof-header-fg: #faf8f4;
+    --prof-header-fg-soft: #d8e8f8;
+    --prof-header-fg-muted: #c8dff5;
+    --prof-header-border: rgba(250, 248, 244, 0.42);
+    --prof-header-chip-bg: rgba(250, 248, 244, 0.14);
+    border: 1px solid var(--prof-body-line);
+    background: var(--prof-body-bg);
+    color-scheme: light;
+    isolation: isolate;
+  }
+
+  .profesional-profile-header {
+    @apply relative shrink-0 px-6 pb-6 pt-8 text-center;
+    background: linear-gradient(
+      165deg,
+      #0a2342 0%,
+      #1e4d8c 55%,
+      #163a6e 100%
+    );
+  }
+
+  .profesional-profile-eyebrow {
+    color: var(--prof-header-fg-muted);
+  }
+
+  .profesional-profile-name {
+    color: var(--prof-header-fg);
+  }
+
+  .profesional-profile-role {
+    color: var(--prof-header-fg-soft);
+  }
+
+  .profesional-profile-institution {
+    color: color-mix(in srgb, var(--prof-header-fg) 92%, transparent);
+  }
+
+  .profesional-profile-credential {
+    color: var(--prof-header-fg);
+    border: 1px solid var(--prof-header-border);
+    background: var(--prof-header-chip-bg);
+  }
+
+  .profesional-profile-header::after {
+    content: "";
+    @apply absolute inset-x-0 bottom-0 h-px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(184, 220, 250, 0.55),
+      transparent
+    );
+  }
+
+  .profesional-profile-close {
+    @apply absolute right-4 top-4 flex size-9 items-center justify-center rounded-full border transition-colors sm:right-5 sm:top-5;
+    color: var(--prof-header-fg);
+    border-color: var(--prof-header-border);
+    background: var(--prof-header-chip-bg);
+  }
+
+  .profesional-profile-close:hover {
+    border-color: color-mix(in srgb, var(--prof-header-fg) 55%, transparent);
+    background: color-mix(in srgb, var(--prof-header-fg) 22%, transparent);
+  }
+
+  .profesional-profile-avatar {
+    @apply relative mx-auto size-[4.5rem] rounded-full border-2;
+    color: var(--prof-header-fg-soft);
+    border-color: color-mix(in srgb, var(--prof-header-fg) 38%, transparent);
+    background: color-mix(in srgb, var(--prof-header-fg) 12%, transparent);
+    box-shadow:
+      0 0 0 4px rgba(184, 220, 250, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  }
+
+  .profesional-profile-scroll {
+    @apply min-h-0 flex-1 overflow-y-auto overscroll-contain px-6 py-6;
+    background: var(--prof-body-bg);
+    color: var(--prof-body-fg);
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    scrollbar-width: thin;
+    scrollbar-color: var(--nova-optic-blue) transparent;
+  }
+
+  .profesional-profile-scroll::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .profesional-profile-scroll::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--nova-optic-blue) 35%, transparent);
+  }
+
+  .profesional-profile-intro {
+    @apply flex gap-3 rounded-2xl border px-4 py-4;
+    background: var(--prof-body-cream);
+    border-color: var(--prof-body-line);
+    border-left-width: 3px;
+    border-left-color: var(--prof-body-optic);
+  }
+
+  .profesional-profile-intro-icon {
+    color: var(--prof-body-optic);
+  }
+
+  .profesional-profile-intro-text {
+    color: var(--prof-body-muted);
+  }
+
+  .profesional-profile-meta {
+    @apply mt-5 grid grid-cols-2 gap-3;
+  }
+
+  .profesional-profile-meta > div {
+    @apply rounded-xl border px-3.5 py-3;
+    background: var(--prof-body-cream);
+    border-color: var(--prof-body-line);
+  }
+
+  .profesional-profile-meta dt {
+    @apply flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.14em];
+    color: var(--prof-body-label);
+  }
+
+  .profesional-profile-meta dt svg {
+    color: var(--prof-body-label);
+  }
+
+  .profesional-profile-meta dd {
+    @apply mt-1.5 text-sm font-medium leading-snug;
+    color: var(--prof-body-fg);
+  }
+
+  .profesional-profile-block {
+    @apply mt-5 rounded-2xl border p-4;
+    background: var(--prof-body-bg);
+    border-color: var(--prof-body-line);
+  }
+
+  .profesional-profile-block--muted {
+    background: var(--prof-body-cream);
+  }
+
+  .profesional-profile-label {
+    @apply mb-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em];
+    color: var(--prof-body-label);
+  }
+
+  .profesional-profile-label-icon {
+    color: var(--prof-body-optic);
+  }
+
+  .profesional-profile-list {
+    @apply space-y-2.5;
+  }
+
+  .profesional-profile-list li {
+    @apply relative pl-4 text-sm leading-relaxed;
+    color: var(--prof-body-muted);
+  }
+
+  .profesional-profile-list li::before {
+    content: "";
+    @apply absolute left-0 top-[0.55em] size-1.5 rounded-full;
+    background: var(--prof-body-optic);
+  }
+
+  .profesional-profile-body-text {
+    color: var(--prof-body-muted);
+  }
+
+  .profesional-profile-footer {
+    @apply shrink-0 border-t px-6 py-5;
+    background: var(--prof-body-cream);
+    border-color: var(--prof-body-line);
+  }
+
+  .profesional-profile-footer-title {
+    color: var(--prof-body-fg);
+  }
+
+  .profesional-profile-footer-sub {
+    color: var(--prof-body-muted);
+  }
+
+  .profesional-profile-footer .btn-cta {
+    background: var(--prof-body-fg);
+    color: var(--prof-body-bg);
+  }
+
+  .profesional-profile-footer .btn-cta:hover {
+    opacity: 0.88;
+  }
+
+  .profesional-profile-link-secondary {
+    @apply inline-flex items-center justify-center rounded-full border px-5 py-3 text-sm font-medium transition-colors;
+    background: var(--prof-body-bg);
+    color: var(--prof-body-fg);
+    border-color: var(--prof-body-line);
+  }
+
+  .profesional-profile-link-secondary:hover {
+    border-color: color-mix(in srgb, var(--prof-body-optic) 45%, transparent);
+    color: var(--prof-body-optic);
+  }
+
+  /* Tarjeta sección profesional — preview alineada al modal */
+  .profesional-card-trigger {
+    @apply overflow-hidden rounded-[1.25rem] border border-line bg-paper shadow-soft transition-[border-color,box-shadow,transform] duration-500 ease-luxury;
+  }
+
+  .profesional-card-trigger:hover {
+    @apply -translate-y-0.5 shadow-float;
+    border-color: color-mix(in srgb, var(--nova-optic-blue) 20%, transparent);
+  }
+
+  .profesional-card-trigger-header {
+    @apply px-6 py-3.5 text-center font-mono text-[10px] tracking-[0.2em] text-on-dark;
+    background: linear-gradient(
+      135deg,
+      var(--nova-brand-navy) 0%,
+      var(--nova-optic-blue) 100%
+    );
+  }
+
+  .profesional-card-avatar {
+    @apply relative overflow-hidden rounded-full border-2 border-paper bg-cream shadow-[0_8px_28px_-8px_rgba(30,77,140,0.35)];
+  }
+
+  .btn-cta {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-cta px-8 py-4 text-sm font-medium text-cta-fg shadow-float transition-[opacity,transform,box-shadow] duration-300 hover:opacity-90 active:scale-[0.98];
+  }
+
+  .btn-cta:focus-visible {
+    outline: 2px solid var(--nova-optic-blue);
+    outline-offset: 3px;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-line bg-paper px-5 py-2.5 text-sm font-medium text-foreground transition-[border-color,color,background-color] duration-300;
+  }
+
+  .btn-secondary:hover {
+    border-color: color-mix(in srgb, var(--nova-optic-blue) 40%, transparent);
+    @apply text-optic;
+  }
+
+  .btn-secondary:focus-visible {
+    outline: 2px solid var(--nova-optic-blue);
+    outline-offset: 3px;
+  }
+
+  .btn-cta-outline-on-dark {
+    @apply inline-flex items-center gap-2 rounded-full border border-[rgba(250,248,244,0.35)] px-6 py-4 text-sm font-medium text-on-dark transition-colors hover:border-[rgba(250,248,244,0.55)] hover:bg-[rgba(250,248,244,0.08)];
+  }
+
+  .btn-cta-outline-on-dark:focus-visible {
+    outline: 2px solid var(--nova-cyan-mist);
+    outline-offset: 3px;
+  }
+
+  /* Botón flotante WhatsApp */
+  .whatsapp-fab {
+    @apply fixed z-[90] flex items-center gap-2 rounded-full text-white shadow-[0_8px_32px_-6px_rgba(37,211,102,0.55)];
+    right: max(1rem, env(safe-area-inset-right, 0px));
+    bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
+    background: #25d366;
+    padding: 0.875rem;
+    transition:
+      transform 0.3s var(--ease-luxury),
+      box-shadow 0.3s var(--ease-luxury),
+      padding 0.3s var(--ease-luxury);
+  }
+
+  .whatsapp-fab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px -8px rgba(37, 211, 102, 0.65);
+  }
+
+  .whatsapp-fab:focus-visible {
+    outline: 2px solid #faf8f4;
+    outline-offset: 3px;
+  }
+
+  .whatsapp-fab-label {
+    @apply max-w-0 overflow-hidden whitespace-nowrap text-sm font-semibold opacity-0 transition-[max-width,opacity,margin] duration-300 ease-luxury;
+  }
+
+  @media (min-width: 640px) {
+    .whatsapp-fab {
+      padding: 0.875rem 1.125rem;
+    }
+
+    .whatsapp-fab:hover,
+    .whatsapp-fab:focus-visible {
+      padding-right: 1.25rem;
+    }
+
+    .whatsapp-fab:hover .whatsapp-fab-label,
+    .whatsapp-fab:focus-visible .whatsapp-fab-label {
+      @apply ml-1 max-w-[6rem] opacity-100;
+    }
+  }
+}
+
