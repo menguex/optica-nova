@@ -46,7 +46,7 @@ export function scrollToSection(
       return;
     }
 
-    if (options.lenis) {
+    if (options.lenis && el instanceof HTMLElement) {
       options.lenis.scrollTo(el, {
         offset,
         force: options.lenis.isStopped,
