@@ -1,11 +1,13 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import { useState } from "react";
 import { PageContainer } from "@/components/ui/PageContainer";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { about, clinicHighlights } from "@/lib/data/clinic";
 import { brand } from "@/lib/data/brand";
+import { localGalleryImages } from "@/lib/data/images";
 import { aboutTabIconMap, ICON_STROKE } from "@/lib/icons";
 import { cn } from "@/lib/utils";
 
@@ -105,6 +107,40 @@ export function About() {
             </motion.li>
           ))}
         </motion.ul>
+
+        <motion.div
+          variants={itemVariants}
+          className="mx-auto mb-12 grid max-w-5xl gap-4 sm:grid-cols-3"
+        >
+          {localGalleryImages.map((image) => (
+            <figure
+              key={image.src}
+              className="group relative overflow-hidden rounded-2xl border border-line bg-paper shadow-soft"
+            >
+              <div className="relative aspect-[3/4]">
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  className="object-cover transition-transform duration-700 ease-luxury group-hover:scale-[1.03]"
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+                <div
+                  className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent"
+                  aria-hidden
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 p-4">
+                  <p className="font-mono text-[10px] tracking-[0.16em] text-on-dark/80">
+                    OSV · OVALLE
+                  </p>
+                  <p className="mt-1 text-sm font-medium text-on-dark">
+                    {image.caption}
+                  </p>
+                </figcaption>
+              </div>
+            </figure>
+          ))}
+        </motion.div>
 
         <motion.div
           className="overflow-hidden rounded-3xl border border-line bg-cream/80 shadow-soft backdrop-blur-sm"

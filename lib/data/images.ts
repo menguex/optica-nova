@@ -6,14 +6,33 @@ export const heroImage = {
   alt: "Fachada de Óptica Salud Visual en Coquimbo 177, Ovalle",
 };
 
+/** Fotos reales del local — recepción, atención y sala de examen. */
+export const localGalleryImages = [
+  {
+    src: "/local/interior-recepcion.png",
+    alt: "Recepción de Óptica Salud Visual con mostrador y monturas en Ovalle",
+    caption: "Recepción y showroom",
+  },
+  {
+    src: "/local/interior-atencion.png",
+    alt: "Atención personalizada con prueba de armazones en el local de Ovalle",
+    caption: "Asesoría en monturas",
+  },
+  {
+    src: "/local/sala-examen-visual.png",
+    alt: "Sala de examen visual con autorrefractómetro y foróptero en OSV Ovalle",
+    caption: "Sala de examen visual",
+  },
+] as const;
+
 export const experienceImage = {
-  src: pexels(5752241, 1000),
-  alt: "Foróptero y equipo de examen visual en consulta",
+  src: localGalleryImages[2].src,
+  alt: localGalleryImages[2].alt,
 };
 
 export const parallaxStatementImage = {
-  src: pexels(5842846, 2400),
-  alt: "Monturas ópticas — compromiso con la salud visual",
+  src: localGalleryImages[1].src,
+  alt: localGalleryImages[1].alt,
 };
 
 export const galleryImages = [
