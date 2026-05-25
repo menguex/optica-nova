@@ -126,7 +126,7 @@ export function Hero() {
                     SALUD VISUAL · OVALLE
                   </p>
                   <p className="max-w-[16rem] text-left text-sm font-medium leading-snug text-on-dark">
-                    Consulta con foróptero y tecnología de diagnóstico.
+                    Nuestro local en Coquimbo 177 — te esperamos en Ovalle.
                   </p>
                 </figcaption>
               </div>

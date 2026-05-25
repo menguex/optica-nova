@@ -1,9 +1,9 @@
 import { pexels } from "@/lib/pexels";
 
-/** Hero: equipo clínico (sin retrato — mejor contraste y mensaje OSV). */
+/** Hero: fachada del local en Ovalle. */
 export const heroImage = {
-  src: pexels(5752241, 2400),
-  alt: "Foróptero y equipo de examen visual en consulta óptica",
+  src: "/local/fachada-ovalle.png",
+  alt: "Fachada de Óptica Salud Visual en Coquimbo 177, Ovalle",
 };
 
 export const experienceImage = {
