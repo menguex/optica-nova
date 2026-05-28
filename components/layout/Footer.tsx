@@ -222,7 +222,9 @@ export function Footer() {
                     className="inline-flex items-center gap-2 text-muted transition-colors hover:text-ink"
                   >
                     <AtSign className="size-3.5 text-optic" aria-hidden />
-                    {ig.handle}
+                    <span className="font-medium text-ink/80">Instagram</span>
+                    <span className="text-muted">·</span>
+                    <span>{ig.handle}</span>
                   </a>
                 </li>
               ))}
@@ -233,6 +235,8 @@ export function Footer() {
                     className="inline-flex items-center gap-2 text-muted transition-colors hover:text-ink"
                   >
                     <AtSign className="size-3.5 text-optic" aria-hidden />
+                    <span className="font-medium text-ink/80">Correo</span>
+                    <span className="text-muted">·</span>
                     {email}
                   </a>
                 </li>
@@ -246,7 +250,9 @@ export function Footer() {
                   aria-label={`Escribir por WhatsApp al ${site.phoneDisplay}`}
                 >
                   <Phone className="size-3.5 text-optic" aria-hidden />
-                  {site.phoneDisplay}
+                  <span className="font-medium text-ink/80">WhatsApp</span>
+                  <span className="text-muted">·</span>
+                  <span>{site.phoneDisplay}</span>
                 </a>
               </li>
             </ul>
