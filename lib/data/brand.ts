@@ -6,10 +6,6 @@ export const brand = {
   emails: ["saludvisualyoptica@gmail.com", "opticasaludvisual07@gmail.com"],
   instagram: [
     {
-      handle: "@optica.saludvisual.ovalle",
-      url: "https://www.instagram.com/optica.saludvisual.ovalle",
-    },
-    {
       handle: "@saludvisual.optica.ovalle",
       url: "https://www.instagram.com/saludvisual.optica.ovalle",
     },

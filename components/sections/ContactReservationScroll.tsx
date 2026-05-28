@@ -25,12 +25,21 @@ export function ContactReservationScroll({
           WhatsApp.
         </p>
         <p className="mt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm text-on-dark">
-          <a
-            href={`mailto:${brand.email}`}
-            className="underline underline-offset-4 transition-colors hover:text-reserve-fg"
-          >
-            {brand.email}
-          </a>
+          {(brand.emails ?? [brand.email]).map((email, index) => (
+            <span key={email} className="inline-flex items-center gap-3">
+              <a
+                href={`mailto:${email}`}
+                className="underline underline-offset-4 transition-colors hover:text-reserve-fg"
+              >
+                {email}
+              </a>
+              {index < (brand.emails ?? [brand.email]).length - 1 ? (
+                <span className="hidden text-on-dark-secondary sm:inline" aria-hidden>
+                  ·
+                </span>
+              ) : null}
+            </span>
+          ))}
           <span className="hidden text-on-dark-secondary sm:inline" aria-hidden>
             ·
           </span>
