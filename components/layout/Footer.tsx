@@ -16,6 +16,47 @@ import { navItems } from "@/lib/data/nav";
 import { site, whatsappUrlWithMessage } from "@/lib/data/site";
 import { ICON_STROKE } from "@/lib/icons";
 
+function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden {...props}>
+      <path
+        d="M16 3H8a5 5 0 0 0-5 5v8a5 5 0 0 0 5 5h8a5 5 0 0 0 5-5V8a5 5 0 0 0-5-5Z"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <path
+        d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <path
+        d="M17.5 6.5h.01"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function WhatsAppIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden {...props}>
+      <path
+        d="M20 11.5A7.5 7.5 0 0 1 9.2 18L4 20l1.8-5.2A7.5 7.5 0 1 1 20 11.5Z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M10 9.5c.2-.5.5-.6 1-.4l.9.6c.3.2.4.6.2.9l-.2.5c-.1.2 0 .5.1.7.7 1.1 1.5 1.9 2.6 2.6.2.1.5.2.7.1l.5-.2c.3-.1.7 0 .9.2l.6.9c.2.4.1.8-.4 1-.6.3-1.4.5-2.1.2-1.5-.6-2.9-1.7-4.1-2.9-1.2-1.2-2.3-2.6-2.9-4.1-.3-.7-.1-1.5.2-2.1Z"
+        fill="currentColor"
+        opacity="0.9"
+      />
+    </svg>
+  );
+}
+
 export function Footer() {
   return (
     <footer id="contacto" className="relative border-t border-line bg-cream">
@@ -221,7 +262,7 @@ export function Footer() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-muted transition-colors hover:text-ink"
                   >
-                    <AtSign className="size-3.5 text-optic" aria-hidden />
+                    <InstagramIcon className="size-4 text-optic" />
                     <span className="font-medium text-ink/80">Instagram</span>
                     <span className="text-muted">·</span>
                     <span>{ig.handle}</span>
@@ -249,7 +290,7 @@ export function Footer() {
                   className="inline-flex items-center gap-2 text-muted transition-colors hover:text-ink"
                   aria-label={`Escribir por WhatsApp al ${site.phoneDisplay}`}
                 >
-                  <Phone className="size-3.5 text-optic" aria-hidden />
+                  <WhatsAppIcon className="size-4 text-optic" />
                   <span className="font-medium text-ink/80">WhatsApp</span>
                   <span className="text-muted">·</span>
                   <span>{site.phoneDisplay}</span>
