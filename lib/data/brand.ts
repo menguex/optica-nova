@@ -2,7 +2,8 @@ export const brand = {
   name: "Óptica Salud Visual",
   shortName: "OSV",
   nameUpper: "ÓPTICA SALUD VISUAL",
-  email: "hola@opticasaludvisual.cl",
+  email: "saludvisualyoptica@gmail.com",
+  emails: ["saludvisualyoptica@gmail.com", "opticasaludvisual07@gmail.com"],
   instagram: [
     {
       handle: "@optica.saludvisual.ovalle",

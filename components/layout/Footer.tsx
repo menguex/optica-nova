@@ -226,13 +226,27 @@ export function Footer() {
                   </a>
                 </li>
               ))}
+              {(brand.emails ?? [brand.email]).map((email) => (
+                <li key={email}>
+                  <a
+                    href={`mailto:${email}`}
+                    className="inline-flex items-center gap-2 text-muted transition-colors hover:text-ink"
+                  >
+                    <AtSign className="size-3.5 text-optic" aria-hidden />
+                    {email}
+                  </a>
+                </li>
+              ))}
               <li>
                 <a
-                  href={`mailto:${brand.email}`}
+                  href={whatsappUrlWithMessage}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-muted transition-colors hover:text-ink"
+                  aria-label={`Escribir por WhatsApp al ${site.phoneDisplay}`}
                 >
-                  <AtSign className="size-3.5 text-optic" aria-hidden />
-                  {brand.email}
+                  <Phone className="size-3.5 text-optic" aria-hidden />
+                  {site.phoneDisplay}
                 </a>
               </li>
             </ul>

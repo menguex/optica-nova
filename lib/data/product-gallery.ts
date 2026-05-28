@@ -19,19 +19,19 @@ const frameImagesByProduct: string[] = [
   pexels(5842846, 1200), // Gama alta
   pexels(5996744, 1200), // Línea básica
   pexels(11624140, 1200), // Seguridad
-  pexels(5842846, 1200), // Niños — monturas coloridas (producto)
-  pexels(85370, 1200), // Rimless — macro montura
-  pexels(978808, 1200), // Sol
+  pexels(3997718, 1200), // Niños flexibles
+  pexels(7534108, 1200), // Rimless
+  pexels(1139793, 1200), // Sol
   pexels(831430, 1200), // Lectura
   pexels(85370, 1200), // Filtro azul — detalle de lente
-  pexels(29173452, 1200), // Clip-on / sol
+  pexels(978808, 1200), // Clip-on
 ];
 
 const treatmentImagesByProduct: string[] = [
   pexels(5842846, 1200),
   pexels(85370, 1200), // Filtro azul — detalle lente
   pexels(978808, 1200),
-  pexels(85370, 1200),
+  pexels(5752311, 1200), // Filtro ámbar — conducción nocturna
   pexels(29173452, 1200),
   pexels(5996744, 1200),
   pexels(5752241, 1200),
@@ -87,15 +87,16 @@ const frameDescriptions: Record<string, string> = {
 
 const treatmentDescriptions: Record<string, string> = {
   Antirreflejo: "Reduce reflejos y mejora la nitidez en condiciones de luz.",
-  "Filtro azul": "Aténúa la luz azul de pantallas y entornos artificiales.",
+  "Filtro azul":
+    "Aténúa la luz azul de pantallas y entornos artificiales, ayudando a reducir la fatiga visual.",
   Fotocromático: "Se oscurece con la luz solar y aclara en interiores.",
-  "Teñido ámbar / rosa": "Tonos cosméticos y confort en exteriores.",
+  "Filtro ámbar": "Especial para la conducción de noche: mejora contraste y confort visual.",
   Polarizados: "Elimina deslumbramientos en conducción y actividades al aire libre.",
   "Adelgazado normal (índice 1.67)":
     "Cristales más delgados para graduaciones medias y altas.",
   "Extra adelgazado (índice 1.74)":
     "Máximo adelgazamiento para graduaciones elevadas.",
-  "Filtro UV": "Protección ultravioleta en orgánico o mineral.",
+  "Filtro UV": "Protección ultravioleta disponible en orgánico, mineral y policarbonato.",
   Antiempañante: "Tratamiento para evitar empañamiento en cambios de temperatura.",
 };
 

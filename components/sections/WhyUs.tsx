@@ -94,7 +94,7 @@ export function WhyUs() {
             >
               <p className="text-base leading-relaxed text-on-dark-secondary md:text-lg">
                 Un mismo equipo te acompaña en evaluación, receta y elección de
-                montura — sin derivaciones innecesarias.
+                montura.
               </p>
             </motion.div>
 

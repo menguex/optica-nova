@@ -146,7 +146,7 @@ export const lensTreatments = [
   "Antirreflejo",
   "Filtro azul",
   "Fotocromático",
-  "Teñido ámbar / rosa",
+  "Filtro ámbar",
   "Polarizados",
   "Adelgazado normal (índice 1.67)",
   "Extra adelgazado (índice 1.74)",
