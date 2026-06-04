@@ -38,26 +38,33 @@ function isProductAsset(src: string) {
 function ProductGalleryMedia({
   src,
   alt,
+  priority = false,
 }: {
   src: string;
   alt: string;
+  priority?: boolean;
 }) {
   return (
     <div
-      className="product-gallery-media relative overflow-hidden bg-paper"
+      className="product-gallery-media relative overflow-hidden"
       style={{ aspectRatio: "3 / 4" }}
     >
-      <div className="absolute inset-0 ring-1 ring-inset ring-line/25" aria-hidden />
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        unoptimized
-        objectFit="contain"
-        objectPosition="center"
-        className="transition-transform duration-700 ease-luxury group-hover:scale-[1.02]"
-        sizes="(max-width: 640px) 86vw, (max-width: 1024px) 45vw, 320px"
-      />
+      <div className="product-gallery-media__backdrop" aria-hidden />
+      <div className="product-gallery-media__vignette" aria-hidden />
+      <div className="absolute inset-0 ring-1 ring-inset ring-line/20" aria-hidden />
+      <div className="product-gallery-media__frame">
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          priority={priority}
+          quality={90}
+          objectFit="contain"
+          objectPosition="center"
+          className="product-gallery-media__img transition-transform duration-700 ease-luxury group-hover:scale-[1.03]"
+          sizes="(max-width: 640px) 86vw, (max-width: 1024px) 45vw, 384px"
+        />
+      </div>
     </div>
   );
 }
@@ -175,7 +182,11 @@ export function Gallery4({
             >
               <article className="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-line bg-paper shadow-soft transition-shadow hover:shadow-float">
                 {imageMode === "product" || isProductAsset(item.image) ? (
-                  <ProductGalleryMedia src={item.image} alt={item.title} />
+                  <ProductGalleryMedia
+                    src={item.image}
+                    alt={item.title}
+                    priority={items.indexOf(item) === 0}
+                  />
                 ) : (
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <Image

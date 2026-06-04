@@ -580,10 +580,48 @@
     }
   }
 
-  /* Productos — Next/Image con fill fuerza cover; mantener foto completa */
+  /* Productos — escenario tipo vitrina + foto completa */
+  .product-gallery-media__backdrop {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      165deg,
+      #faf8f4 0%,
+      #f3efe8 42%,
+      #ebe6de 100%
+    );
+  }
+
+  .product-gallery-media__vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 72% 58% at 50% 42%,
+      rgba(255, 255, 255, 0.72) 0%,
+      transparent 68%
+    );
+    pointer-events: none;
+  }
+
+  .product-gallery-media__frame {
+    position: absolute;
+    inset: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (min-width: 768px) {
+    .product-gallery-media__frame {
+      inset: 1rem;
+    }
+  }
+
+  .product-gallery-media__img,
   .product-gallery-media img {
     object-fit: contain !important;
     object-position: center !important;
+    filter: contrast(1.03) saturate(1.05);
   }
 
   /* Productos — carrusel con respiro lateral (evita tarjetas cortadas) */

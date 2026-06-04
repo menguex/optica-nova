@@ -12,38 +12,39 @@ export type ProductGalleryItem = {
   category: "armazones" | "tratamientos" | "materiales";
 };
 
-const productImage = (filename: string) => `/productos/${filename}`;
+/** WebP optimizado con Sharp (npm run optimize:productos). */
+const productImage = (slug: string) => `/productos/${slug}.webp`;
 
 /** Fotos reales de Óptica Salud Visual (carpeta «imagenes de armazon»). */
 const frameImagesByProduct: string[] = [
-  productImage("premium-marcas.jpeg"),
-  productImage("gama-alta.jpeg"),
-  productImage("linea-basica.jpeg"),
-  productImage("antiparras-seguridad.jpeg"),
-  productImage("ninos-flexibles.jpeg"),
-  productImage("al-aire.jpeg"),
-  productImage("sol-adulto.jpeg"),
-  productImage("lectura.jpeg"),
-  productImage("descanso-filtro-azul.jpeg"),
-  productImage("clip-on.jpeg"),
+  productImage("premium-marcas"),
+  productImage("gama-alta"),
+  productImage("linea-basica"),
+  productImage("antiparras-seguridad"),
+  productImage("ninos-flexibles"),
+  productImage("al-aire"),
+  productImage("sol-adulto"),
+  productImage("lectura"),
+  productImage("descanso-filtro-azul"),
+  productImage("clip-on"),
 ];
 
 const treatmentImagesByProduct: string[] = [
-  productImage("tratamiento-antirreflejo.jpeg"),
-  productImage("tratamiento-filtro-azul.jpeg"),
-  productImage("tratamiento-fotocromatico.jpeg"),
-  productImage("tratamiento-filtro-ambar.jpeg"),
-  productImage("tratamiento-polarizado.jpeg"),
-  productImage("tratamiento-adelgazado.jpeg"),
-  productImage("tratamiento-extra-adelgazado.jpeg"),
-  productImage("tratamiento-filtro-uv.jpeg"),
-  productImage("tratamiento-antiempanante.jpeg"),
+  productImage("tratamiento-antirreflejo"),
+  productImage("tratamiento-filtro-azul"),
+  productImage("tratamiento-fotocromatico"),
+  productImage("tratamiento-filtro-ambar"),
+  productImage("tratamiento-polarizado"),
+  productImage("tratamiento-adelgazado"),
+  productImage("tratamiento-extra-adelgazado"),
+  productImage("tratamiento-filtro-uv"),
+  productImage("tratamiento-antiempanante"),
 ];
 
 const materialImagesByProduct: string[] = [
-  productImage("material-mineral.jpeg"),
-  productImage("material-organico.jpeg"),
-  productImage("material-policarbonato.jpeg"),
+  productImage("material-mineral"),
+  productImage("material-organico"),
+  productImage("material-policarbonato"),
 ];
 
 function toItems(

@@ -33,12 +33,13 @@ En bancos gratuitos (Pexels) **no hay fotos de Ovalle, Limarí ni interior del l
 | Criterio | Implementación |
 |----------|----------------|
 | Fuente | Archivos del local (carpeta «imagenes de armazon») |
-| Recorte | `object-contain` + `object-center` — foto completa, sin cortar monturas |
-| Marco | Fondo `paper`, borde interior; proporción `aspect-[3/4]` (fotos 960×1280 del local) |
-| Carrusel | Tarjetas de ancho fijo (~18–19rem), gap entre slides, sin recorte de títulos en bordes |
-| Código | `components/ui/gallery4.tsx` → `ProductGalleryMedia`, `imageMode="product"` |
+| Optimización | **Sharp** → WebP 88 %, auto-rotación EXIF, nitidez y color (`npm run optimize:productos`) |
+| Entrega web | **Next/Image** WebP/AVIF, `quality={90}`, tamaños responsivos |
+| Recorte | `object-contain` centrado — montura completa visible |
+| Marco | Vitrina con degradado + viñeta; proporción 3:4 |
+| Carrusel | Tarjetas de ancho fijo, gap entre slides |
 
-Archivos nombrados por slug (`premium-marcas.jpeg`, `gama-alta.jpeg`, etc.) en `lib/data/product-gallery.ts`.
+Slugs en `lib/data/product-gallery.ts` → `/productos/{slug}.webp`. JPEG originales se conservan en `public/productos/`.
 
 ## Otras secciones
 
