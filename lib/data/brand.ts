@@ -10,7 +10,7 @@ export const brand = {
       url: "https://www.instagram.com/saludvisual.optica.ovalle",
     },
   ],
-  siteUrl: "https://opticasaludvisual.cl",
+  siteUrl: "https://saludvisualyoptica.cl",
   logo: {
     src: "/logo-salud-visual.png",
     width: 953,
