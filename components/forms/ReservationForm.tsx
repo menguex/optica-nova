@@ -6,8 +6,10 @@ import { ArrowRight, CheckCircle2, Loader2, MessageCircle, Phone } from "lucide-
 import { cn } from "@/lib/utils";
 import { brand } from "@/lib/data/brand";
 import { site } from "@/lib/data/site";
+import { submitReservationViaFormSubmit } from "@/lib/forms/formsubmit-client";
 import { reservationWhatsAppUrl } from "@/lib/forms/reservation-whatsapp";
 import type { ReservationErrors, ReservationPayload } from "@/lib/validations/reservation";
+import { validateReservation } from "@/lib/validations/reservation";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -65,14 +67,23 @@ export function ReservationForm({
     setShowWhatsAppFallback(false);
 
     const form = e.currentTarget;
-    const data = Object.fromEntries(new FormData(form));
-    setLastPayload(formDataToPayload(new FormData(form)));
+    const raw = Object.fromEntries(new FormData(form));
+    const payload = formDataToPayload(new FormData(form));
+    setLastPayload(payload);
+
+    const validation = validateReservation(raw);
+    if (!validation.ok) {
+      setStatus("error");
+      setErrors(validation.errors);
+      setMessage("Revisa los campos marcados e intenta de nuevo.");
+      return;
+    }
 
     try {
       const res = await fetch("/api/reservar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(raw),
       });
 
       let json: {
@@ -85,27 +96,41 @@ export function ReservationForm({
       try {
         json = await res.json();
       } catch {
-        setStatus("error");
-        setMessage("Respuesta inesperada del servidor. Intenta de nuevo.");
-        setShowWhatsAppFallback(true);
+        json = {};
+      }
+
+      if (res.ok && json.ok !== false) {
+        setStatus("success");
+        setMessage(
+          json.message ||
+            "Recibimos tu solicitud. Te contactaremos pronto para confirmar tu cita.",
+        );
+        form.reset();
+        setLastPayload({});
         return;
       }
 
-      if (!res.ok) {
+      if (json.errors) {
         setStatus("error");
-        if (json.errors) setErrors(json.errors);
+        setErrors(json.errors);
         setMessage(json.message || "Revisa los datos e intenta de nuevo.");
-        setShowWhatsAppFallback(json.fallback === "whatsapp");
         return;
       }
 
-      setStatus("success");
-      setMessage(
-        json.message ||
+      const clientResult = await submitReservationViaFormSubmit(validation.data);
+      if (clientResult.ok) {
+        setStatus("success");
+        setMessage(
           "Recibimos tu solicitud. Te contactaremos pronto para confirmar tu cita.",
-      );
-      form.reset();
-      setLastPayload({});
+        );
+        form.reset();
+        setLastPayload({});
+        return;
+      }
+
+      setStatus("error");
+      setMessage(clientResult.message);
+      setShowWhatsAppFallback(true);
     } catch {
       setStatus("error");
       setMessage("Error de conexión. Verifica tu internet e intenta de nuevo.");
