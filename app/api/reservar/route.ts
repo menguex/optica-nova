@@ -1,10 +1,23 @@
 import { NextResponse } from "next/server";
-import { sendReservationEmail } from "@/lib/email/send-reservation";
+import {
+  ReservationEmailError,
+  sendReservationEmail,
+} from "@/lib/email/send-reservation";
 import { validateReservation } from "@/lib/validations/reservation";
+import { brand } from "@/lib/data/brand";
+import { site } from "@/lib/data/site";
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    let body: Record<string, unknown>;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        { ok: false, message: "Datos del formulario no válidos." },
+        { status: 400 },
+      );
+    }
 
     if (typeof body.website === "string" && body.website.length > 0) {
       return NextResponse.json({ ok: true });
@@ -26,14 +39,39 @@ export async function POST(request: Request) {
         "Recibimos tu solicitud. Te contactaremos pronto para confirmar tu cita.",
     });
   } catch (error) {
-    if (error instanceof Error && error.message === "SMTP_NOT_CONFIGURED") {
+    if (error instanceof ReservationEmailError) {
+      if (error.code === "FORMSUBMIT_NOT_ACTIVATED") {
+        return NextResponse.json(
+          {
+            ok: false,
+            message:
+              "Estamos activando el correo del formulario. Mientras tanto, escríbenos por WhatsApp o llámanos.",
+            fallback: "whatsapp",
+          },
+          { status: 503 },
+        );
+      }
+
+      if (error.code === "SMTP_NOT_CONFIGURED") {
+        return NextResponse.json(
+          {
+            ok: false,
+            message:
+              "No pudimos enviar por correo. Contáctanos por WhatsApp o al teléfono de la óptica.",
+            fallback: "whatsapp",
+          },
+          { status: 503 },
+        );
+      }
+
       return NextResponse.json(
         {
           ok: false,
           message:
-            "El envío de correo no está configurado. Contacta a la óptica por teléfono.",
+            "No pudimos enviar tu solicitud. Intenta por WhatsApp o vuelve a intentar en unos minutos.",
+          fallback: "whatsapp",
         },
-        { status: 503 },
+        { status: 500 },
       );
     }
 
@@ -42,7 +80,10 @@ export async function POST(request: Request) {
       {
         ok: false,
         message:
-          "No pudimos enviar tu solicitud. Intenta de nuevo en unos minutos.",
+          "No pudimos enviar tu solicitud. Intenta de nuevo o contáctanos por WhatsApp.",
+        fallback: "whatsapp",
+        phone: site.phoneDisplay,
+        email: brand.email,
       },
       { status: 500 },
     );
