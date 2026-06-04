@@ -36,10 +36,10 @@ export function Products() {
             </>
           }
           subtitle="Desliza para explorar nuestra oferta de armazones, tratamientos y materiales de cristales."
-          className="mb-10"
+          className="mb-12 md:mb-14"
         />
 
-        <div className="productos-filters mb-10 flex flex-wrap justify-center gap-2 rounded-[2rem] border border-line/60 bg-paper/80 p-2 shadow-soft sm:gap-2.5 sm:rounded-full sm:p-2">
+        <div className="productos-filters mb-12 flex flex-wrap justify-center gap-2.5 rounded-[2rem] border border-line/50 bg-gradient-to-r from-paper/95 via-cream/80 to-paper/95 p-2.5 shadow-soft sm:gap-3 sm:rounded-full sm:p-2.5">
           {productGalleryCategories.map((cat) => (
             <button
               key={cat.id}
@@ -58,7 +58,7 @@ export function Products() {
           ))}
         </div>
 
-        <div className="productos-gallery-shell overflow-hidden rounded-[2.5rem] border border-line/70 bg-gradient-to-b from-paper via-paper to-cream/90 p-4 shadow-soft sm:rounded-[3rem] sm:p-6 md:p-8">
+        <div className="productos-gallery-shell overflow-hidden border border-line/50 p-5 shadow-[0_24px_64px_-32px_rgba(30,77,140,0.14)] sm:p-8 md:p-10 lg:p-12">
         <Gallery4
           key={activeCategory}
           imageMode="product"

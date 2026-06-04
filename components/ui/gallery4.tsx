@@ -45,28 +45,29 @@ function ProductGalleryMedia({
   priority?: boolean;
 }) {
   return (
-    <div
-      className="product-gallery-media relative overflow-hidden rounded-[2rem] sm:rounded-[2.25rem]"
-      style={{ aspectRatio: "3 / 4" }}
-    >
-      <div className="product-gallery-media__backdrop" aria-hidden />
-      <div className="product-gallery-media__vignette" aria-hidden />
+    <div className="product-gallery-media-wrap mx-1 mt-1 sm:mx-1.5 sm:mt-1.5">
       <div
-        className="absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-line/20"
-        aria-hidden
-      />
-      <div className="product-gallery-media__frame">
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          priority={priority}
-          quality={90}
-          objectFit="contain"
-          objectPosition="center"
-          className="product-gallery-media__img transition-transform duration-700 ease-luxury group-hover:scale-[1.03]"
-          sizes="(max-width: 640px) 86vw, (max-width: 1024px) 45vw, 384px"
-        />
+        className="product-gallery-media relative overflow-hidden"
+        style={{ aspectRatio: "3 / 4" }}
+      >
+        <div className="product-gallery-media__backdrop" aria-hidden />
+        <div className="product-gallery-media__glow" aria-hidden />
+        <div className="product-gallery-media__vignette" aria-hidden />
+        <div className="product-gallery-media__edge product-gallery-media__edge--top" aria-hidden />
+        <div className="product-gallery-media__edge product-gallery-media__edge--bottom" aria-hidden />
+        <div className="product-gallery-media__frame">
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            priority={priority}
+            quality={90}
+            objectFit="contain"
+            objectPosition="center"
+            className="product-gallery-media__img transition-transform duration-700 ease-luxury group-hover:scale-[1.02]"
+            sizes="(max-width: 640px) 86vw, (max-width: 1024px) 45vw, 384px"
+          />
+        </div>
       </div>
     </div>
   );
@@ -151,7 +152,12 @@ export function Gallery4({
         }}
         className={cn("w-full", imageMode === "product" && "product-gallery-carousel")}
       >
-        <div className="mb-8 flex flex-col justify-between gap-6 md:mb-10 md:flex-row md:items-end">
+        <div
+          className={cn(
+            "flex flex-col justify-between gap-6 md:flex-row md:items-end",
+            isProduct ? "mb-10 md:mb-12" : "mb-8 md:mb-10",
+          )}
+        >
           <div className="max-w-xl">
             {title ? (
               <h3 className="font-display text-2xl tracking-[-0.02em] text-ink md:text-3xl">
@@ -181,7 +187,7 @@ export function Gallery4({
         <CarouselContent
           className={cn(
             imageMode === "product"
-              ? "ml-0 gap-5 md:gap-6"
+              ? "ml-0 gap-6 py-2 md:gap-8 md:py-3"
               : "-ml-4 md:-ml-6",
           )}
         >
@@ -190,7 +196,7 @@ export function Gallery4({
               key={item.id}
               className={cn(
                 imageMode === "product"
-                  ? "basis-[min(100%,18.5rem)] pl-0 sm:basis-[min(100%,20rem)] md:basis-[min(100%,17.5rem)] lg:basis-[min(100%,19rem)]"
+                  ? "basis-[min(100%,19rem)] pl-0 sm:basis-[min(100%,20.5rem)] md:basis-[min(100%,18.5rem)] lg:basis-[min(100%,20rem)]"
                   : "basis-[88%] pl-4 sm:basis-[70%] md:basis-[55%] md:pl-6 lg:basis-[42%]",
               )}
             >
@@ -198,7 +204,7 @@ export function Gallery4({
                 className={cn(
                   "group flex h-full min-w-0 flex-col overflow-hidden border bg-paper shadow-soft transition-[box-shadow,transform] duration-500 ease-luxury hover:shadow-float",
                   isProduct
-                    ? "product-gallery-card rounded-[2.5rem] border-line/70 p-2.5 sm:p-3"
+                    ? "product-gallery-card rounded-[2.5rem] border-line/60 p-3.5 sm:p-4"
                     : "rounded-2xl border-line",
                 )}
               >
@@ -223,7 +229,7 @@ export function Gallery4({
                   className={cn(
                     "flex flex-1 flex-col",
                     isProduct
-                      ? "product-gallery-card__body m-1 rounded-[1.75rem] bg-cream/50 p-5 md:p-6"
+                      ? "product-gallery-card__body mx-1.5 mb-1.5 mt-2 rounded-[1.85rem] bg-gradient-to-b from-cream/70 to-paper/90 px-5 py-6 md:px-6 md:py-7"
                       : "p-5 md:p-6",
                   )}
                 >
@@ -256,7 +262,8 @@ export function Gallery4({
         <div
           className={cn(
             "mt-8 flex justify-center gap-2.5",
-            isProduct && "rounded-full border border-line/60 bg-paper/80 px-4 py-3 shadow-soft",
+            isProduct &&
+              "mt-10 rounded-full border border-line/50 bg-gradient-to-r from-paper via-cream/90 to-paper px-5 py-3.5 shadow-soft",
           )}
         >
           {Array.from({ length: snapCount }, (_, index) => (

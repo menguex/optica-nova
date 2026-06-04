@@ -580,9 +580,43 @@
     }
   }
 
-  /* Productos — curvas suaves en vitrina y tarjetas */
+  /* Productos — marco curvo con degradé fino */
+  .product-gallery-media-wrap {
+    padding: 1px;
+    border-radius: 2rem;
+    background: linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(168, 212, 245, 0.22) 38%,
+      rgba(235, 230, 222, 0.85) 72%,
+      rgba(30, 77, 140, 0.1) 100%
+    );
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.8) inset,
+      0 12px 36px -20px rgba(30, 77, 140, 0.18);
+  }
+
+  @media (min-width: 640px) {
+    .product-gallery-media-wrap {
+      border-radius: 2.25rem;
+    }
+  }
+
+  .product-gallery-media {
+    border-radius: calc(2rem - 1px);
+    isolation: isolate;
+  }
+
+  @media (min-width: 640px) {
+    .product-gallery-media {
+      border-radius: calc(2.25rem - 1px);
+    }
+  }
+
   .product-gallery-media__backdrop,
-  .product-gallery-media__vignette {
+  .product-gallery-media__glow,
+  .product-gallery-media__vignette,
+  .product-gallery-media__edge {
     border-radius: inherit;
   }
 
@@ -590,22 +624,60 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(
-      165deg,
-      #faf8f4 0%,
-      #f3efe8 42%,
-      #ebe6de 100%
+      168deg,
+      #fcfaf7 0%,
+      #f6f2eb 38%,
+      #efe9e1 68%,
+      #e8e2d9 100%
     );
+  }
+
+  .product-gallery-media__glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 88% 72% at 50% 38%,
+      rgba(168, 212, 245, 0.14) 0%,
+      transparent 62%
+    );
+    pointer-events: none;
   }
 
   .product-gallery-media__vignette {
     position: absolute;
     inset: 0;
     background: radial-gradient(
-      ellipse 72% 58% at 50% 42%,
-      rgba(255, 255, 255, 0.72) 0%,
-      transparent 68%
+      ellipse 78% 64% at 50% 44%,
+      rgba(255, 255, 255, 0.78) 0%,
+      transparent 70%
     );
     pointer-events: none;
+  }
+
+  .product-gallery-media__edge {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 28%;
+    pointer-events: none;
+  }
+
+  .product-gallery-media__edge--top {
+    top: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(250, 248, 244, 0.55) 0%,
+      transparent 100%
+    );
+  }
+
+  .product-gallery-media__edge--bottom {
+    bottom: 0;
+    background: linear-gradient(
+      to top,
+      rgba(235, 230, 222, 0.45) 0%,
+      transparent 100%
+    );
   }
 
   .product-gallery-card {
@@ -613,11 +685,17 @@
   }
 
   .product-gallery-card__body {
-    border-radius: 1.75rem;
+    border-radius: 1.85rem;
   }
 
   .productos-gallery-shell {
     border-radius: 2.5rem;
+    background: linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #faf8f4 42%,
+      rgba(243, 239, 232, 0.92) 100%
+    );
   }
 
   @media (min-width: 640px) {
@@ -626,9 +704,13 @@
     }
   }
 
+  .product-gallery-root {
+    padding-inline: 0.125rem;
+  }
+
   .product-gallery-media__frame {
     position: absolute;
-    inset: 0.75rem;
+    inset: 0.875rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -636,7 +718,7 @@
 
   @media (min-width: 768px) {
     .product-gallery-media__frame {
-      inset: 1rem;
+      inset: 1.125rem;
     }
   }
 
@@ -644,19 +726,18 @@
   .product-gallery-media img {
     object-fit: contain !important;
     object-position: center !important;
-    filter: contrast(1.03) saturate(1.05);
+    filter: contrast(1.02) saturate(1.04);
   }
 
-  /* Productos — carrusel con respiro lateral (evita tarjetas cortadas) */
   .product-gallery-carousel > div:first-child {
-    padding-left: 0.25rem;
-    padding-right: 0.25rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
 
   @media (min-width: 768px) {
     .product-gallery-carousel > div:first-child {
-      padding-left: 0;
-      padding-right: 0;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
     }
   }
 }
