@@ -126,6 +126,7 @@ export function Gallery4({ title, description, items }: Gallery4Props) {
                     src={item.image}
                     alt={item.title}
                     fill
+                    unoptimized={item.image.startsWith("/productos/")}
                     className="object-cover transition-transform duration-700 ease-luxury group-hover:scale-[1.03]"
                     sizes="(max-width: 768px) 88vw, 42vw"
                   />
