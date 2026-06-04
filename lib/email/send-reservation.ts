@@ -102,14 +102,14 @@ async function sendViaFormSubmit(data: ReservationPayload) {
     );
   }
 
-  if (payload.message?.toLowerCase().includes("activation")) {
+  if (payload.message?.toLowerCase().includes("activ")) {
     throw new ReservationEmailError(
       "FormSubmit pendiente de activación.",
       "FORMSUBMIT_NOT_ACTIVATED",
     );
   }
 
-  if (payload.success !== "true" && !response.ok) {
+  if (payload.success !== "true") {
     throw new ReservationEmailError(
       payload.message || "FormSubmit rechazó el envío.",
       "FORMSUBMIT_FAILED",
