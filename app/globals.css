@@ -580,9 +580,17 @@
     }
   }
 
-  /* Productos — fotos del local: encuadre tipo catálogo */
-  .product-gallery-media img {
-    filter: contrast(1.02) saturate(1.04);
+  /* Productos — carrusel con respiro lateral (evita tarjetas cortadas) */
+  .product-gallery-carousel > div:first-child {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .product-gallery-carousel > div:first-child {
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 }
 

@@ -43,19 +43,15 @@ function ProductGalleryMedia({
   alt: string;
 }) {
   return (
-    <div className="product-gallery-media relative aspect-[4/3] overflow-hidden bg-gradient-to-b from-paper via-cream to-paper">
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_75%_65%_at_50%_42%,rgba(255,255,255,0.65),transparent_70%)]"
-        aria-hidden
-      />
-      <div className="absolute inset-0 ring-1 ring-inset ring-line/30" aria-hidden />
+    <div className="product-gallery-media relative aspect-[3/4] overflow-hidden bg-paper">
+      <div className="absolute inset-0 ring-1 ring-inset ring-line/25" aria-hidden />
       <Image
         src={src}
         alt={alt}
         fill
         unoptimized
-        className="object-cover object-[center_42%] transition-transform duration-700 ease-luxury group-hover:scale-[1.03]"
-        sizes="(max-width: 768px) 84vw, 380px"
+        className="object-contain object-center transition-transform duration-700 ease-luxury group-hover:scale-[1.02]"
+        sizes="(max-width: 640px) 86vw, (max-width: 1024px) 45vw, 320px"
       />
     </div>
   );
@@ -132,11 +128,12 @@ export function Gallery4({
       <Carousel
         setApi={setCarouselApi}
         opts={{
-          align: imageMode === "product" ? "center" : "start",
+          align: "start",
           watchResize: true,
           containScroll: "trimSnaps",
+          dragFree: false,
         }}
-        className="w-full"
+        className={cn("w-full", imageMode === "product" && "product-gallery-carousel")}
       >
         <div className="mb-8 flex flex-col justify-between gap-6 md:mb-10 md:flex-row md:items-end">
           <div className="max-w-xl">
@@ -155,18 +152,23 @@ export function Gallery4({
           </div>
         </div>
 
-        <CarouselContent className="-ml-4 md:-ml-6">
+        <CarouselContent
+          className={cn(
+            imageMode === "product"
+              ? "ml-0 gap-5 md:gap-6"
+              : "-ml-4 md:-ml-6",
+          )}
+        >
           {items.map((item) => (
             <CarouselItem
               key={item.id}
               className={cn(
-                "pl-4 md:pl-6",
                 imageMode === "product"
-                  ? "basis-[84%] sm:basis-[62%] md:basis-[48%] lg:basis-[38%]"
-                  : "basis-[88%] sm:basis-[70%] md:basis-[55%] lg:basis-[42%]",
+                  ? "basis-[min(100%,18.5rem)] pl-0 sm:basis-[min(100%,20rem)] md:basis-[min(100%,17.5rem)] lg:basis-[min(100%,19rem)]"
+                  : "basis-[88%] pl-4 sm:basis-[70%] md:basis-[55%] md:pl-6 lg:basis-[42%]",
               )}
             >
-              <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-paper shadow-soft transition-shadow hover:shadow-float">
+              <article className="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-line bg-paper shadow-soft transition-shadow hover:shadow-float">
                 {imageMode === "product" || isProductAsset(item.image) ? (
                   <ProductGalleryMedia src={item.image} alt={item.title} />
                 ) : (
@@ -180,11 +182,11 @@ export function Gallery4({
                     />
                   </div>
                 )}
-                <div className="flex flex-1 flex-col p-6 md:p-7">
-                  <h4 className="font-display text-xl tracking-[-0.02em] text-ink md:text-2xl">
+                <div className="flex flex-1 flex-col p-5 md:p-6">
+                  <h4 className="font-display text-lg tracking-[-0.02em] text-ink md:text-xl">
                     {item.title}
                   </h4>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-muted line-clamp-4">
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted line-clamp-3">
                     {item.description}
                   </p>
                   <Link

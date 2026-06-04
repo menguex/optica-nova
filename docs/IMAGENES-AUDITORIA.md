@@ -33,10 +33,9 @@ En bancos gratuitos (Pexels) **no hay fotos de Ovalle, Limarí ni interior del l
 | Criterio | Implementación |
 |----------|----------------|
 | Fuente | Archivos del local (carpeta «imagenes de armazon») |
-| Recorte | `object-cover` + `object-[center_42%]` — montura centrada, sin bandas vacías del mostrador |
-| Marco | Fondo degradado paper/cream, viñeta radial, borde interior, contraste/saturación leve |
-| Proporción | `aspect-[4/3]` — tarjetas uniformes tipo catálogo |
-| Carrusel | `align: center` — tarjeta activa centrada en viewport |
+| Recorte | `object-contain` + `object-center` — foto completa, sin cortar monturas |
+| Marco | Fondo `paper`, borde interior; proporción `aspect-[3/4]` (fotos 960×1280 del local) |
+| Carrusel | Tarjetas de ancho fijo (~18–19rem), gap entre slides, sin recorte de títulos en bordes |
 | Código | `components/ui/gallery4.tsx` → `ProductGalleryMedia`, `imageMode="product"` |
 
 Archivos nombrados por slug (`premium-marcas.jpeg`, `gama-alta.jpeg`, etc.) en `lib/data/product-gallery.ts`.
