@@ -43,14 +43,18 @@ function ProductGalleryMedia({
   alt: string;
 }) {
   return (
-    <div className="product-gallery-media relative aspect-[3/4] overflow-hidden bg-paper">
+    <div
+      className="product-gallery-media relative overflow-hidden bg-paper"
+      style={{ aspectRatio: "3 / 4" }}
+    >
       <div className="absolute inset-0 ring-1 ring-inset ring-line/25" aria-hidden />
       <Image
         src={src}
         alt={alt}
         fill
         unoptimized
-        style={{ objectFit: "contain", objectPosition: "center" }}
+        objectFit="contain"
+        objectPosition="center"
         className="transition-transform duration-700 ease-luxury group-hover:scale-[1.02]"
         sizes="(max-width: 640px) 86vw, (max-width: 1024px) 45vw, 320px"
       />

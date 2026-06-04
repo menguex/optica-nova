@@ -580,6 +580,12 @@
     }
   }
 
+  /* Productos — Next/Image con fill fuerza cover; mantener foto completa */
+  .product-gallery-media img {
+    object-fit: contain !important;
+    object-position: center !important;
+  }
+
   /* Productos — carrusel con respiro lateral (evita tarjetas cortadas) */
   .product-gallery-carousel > div:first-child {
     padding-left: 0.25rem;
