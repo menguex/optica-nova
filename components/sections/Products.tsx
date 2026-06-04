@@ -60,6 +60,7 @@ export function Products() {
 
         <Gallery4
           key={activeCategory}
+          imageMode="product"
           title={activeMeta?.label}
           description={activeMeta?.description}
           items={filteredItems.map((item) => ({

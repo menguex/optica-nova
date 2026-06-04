@@ -579,5 +579,10 @@
       @apply ml-1 max-w-[6rem] opacity-100;
     }
   }
+
+  /* Productos — fotos del local: encuadre tipo catálogo */
+  .product-gallery-media img {
+    filter: contrast(1.02) saturate(1.04);
+  }
 }
 

@@ -28,20 +28,18 @@ En bancos gratuitos (Pexels) **no hay fotos de Ovalle, Limarí ni interior del l
 - Fachada / sala de espera Ovalle  
 - Pacientes locales (autorización escrita)
 
-## Mapeo armazones (Pexels)
+## Productos — fotos reales (`public/productos/`)
 
-| Producto | ID | Enlace | Motivo |
-|----------|-----|--------|--------|
-| Premium marcas | 28295159 | [Classic eyewear](https://www.pexels.com/photo/elegance-in-frames-a-study-of-classic-eyewear-28295159/) | Monturas de calidad, estudio |
-| Gama alta | 5842846 | [Eyewear items](https://www.pexels.com/photo/close-up-photo-of-eyewear-items-5842846/) | Varios armazones primer plano |
-| Línea básica | 5996744 | [Oculist scale](https://www.pexels.com/photo/eyeglasses-on-an-oculist-scale-5996744/) | Accesible, medición |
-| Seguridad | 11624140 | [Safety glasses](https://www.pexels.com/photo/covid-19-test-kit-tube-near-the-safety-glasses-11624140/) | Antiparras producto |
-| Niños flexibles | 3997718 | [Boy with glasses](https://www.pexels.com/photo/boy-in-green-crew-neck-t-shirt-wearing-black-framed-eyeglasses-3997718/) | Uso infantil |
-| Rimless | 7534108 | [Holding glasses](https://www.pexels.com/photo/person-holding-black-framed-eyeglasses-7534108/) | Detalle montura |
-| Sol | 978808 | [Sunglasses](https://www.pexels.com/photo/closeup-photo-of-black-framed-brown-sunglasses-978808/) | UV / sol |
-| Lectura | 831430 | [On book](https://www.pexels.com/photo/photography-of-eyeglasses-on-top-of-book-831430/) | Presbicia / cerca |
-| Filtro azul | 5935789 | [Laptop glasses](https://www.pexels.com/photo/male-computer-geek-in-eyeglasses-with-laptop-in-darkness-5935789/) | Pantallas |
-| Clip-on | 29173452 | [Sunglasses outdoor](https://www.pexels.com/photo/sunglasses-resting-on-tropical-palm-leaves-29173452/) | Sol adaptable |
+| Criterio | Implementación |
+|----------|----------------|
+| Fuente | Archivos del local (carpeta «imagenes de armazon») |
+| Recorte | `object-cover` + `object-[center_42%]` — montura centrada, sin bandas vacías del mostrador |
+| Marco | Fondo degradado paper/cream, viñeta radial, borde interior, contraste/saturación leve |
+| Proporción | `aspect-[4/3]` — tarjetas uniformes tipo catálogo |
+| Carrusel | `align: center` — tarjeta activa centrada en viewport |
+| Código | `components/ui/gallery4.tsx` → `ProductGalleryMedia`, `imageMode="product"` |
+
+Archivos nombrados por slug (`premium-marcas.jpeg`, `gama-alta.jpeg`, etc.) en `lib/data/product-gallery.ts`.
 
 ## Otras secciones
 

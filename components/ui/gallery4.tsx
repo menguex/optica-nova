@@ -27,9 +27,46 @@ type Gallery4Props = {
   title?: string;
   description?: string;
   items: Gallery4Item[];
+  /** Fotos propias de producto: centradas, sin recorte agresivo. */
+  imageMode?: "product" | "editorial";
 };
 
-export function Gallery4({ title, description, items }: Gallery4Props) {
+function isProductAsset(src: string) {
+  return src.startsWith("/productos/");
+}
+
+function ProductGalleryMedia({
+  src,
+  alt,
+}: {
+  src: string;
+  alt: string;
+}) {
+  return (
+    <div className="product-gallery-media relative aspect-[4/3] overflow-hidden bg-gradient-to-b from-paper via-cream to-paper">
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_75%_65%_at_50%_42%,rgba(255,255,255,0.65),transparent_70%)]"
+        aria-hidden
+      />
+      <div className="absolute inset-0 ring-1 ring-inset ring-line/30" aria-hidden />
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        unoptimized
+        className="object-cover object-[center_42%] transition-transform duration-700 ease-luxury group-hover:scale-[1.03]"
+        sizes="(max-width: 768px) 84vw, 380px"
+      />
+    </div>
+  );
+}
+
+export function Gallery4({
+  title,
+  description,
+  items,
+  imageMode = "editorial",
+}: Gallery4Props) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -94,7 +131,11 @@ export function Gallery4({ title, description, items }: Gallery4Props) {
     <div ref={rootRef} className="w-full">
       <Carousel
         setApi={setCarouselApi}
-        opts={{ align: "start", watchResize: true }}
+        opts={{
+          align: imageMode === "product" ? "center" : "start",
+          watchResize: true,
+          containScroll: "trimSnaps",
+        }}
         className="w-full"
       >
         <div className="mb-8 flex flex-col justify-between gap-6 md:mb-10 md:flex-row md:items-end">
@@ -118,19 +159,27 @@ export function Gallery4({ title, description, items }: Gallery4Props) {
           {items.map((item) => (
             <CarouselItem
               key={item.id}
-              className="basis-[88%] pl-4 sm:basis-[70%] md:basis-[55%] md:pl-6 lg:basis-[42%]"
+              className={cn(
+                "pl-4 md:pl-6",
+                imageMode === "product"
+                  ? "basis-[84%] sm:basis-[62%] md:basis-[48%] lg:basis-[38%]"
+                  : "basis-[88%] sm:basis-[70%] md:basis-[55%] lg:basis-[42%]",
+              )}
             >
               <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-paper shadow-soft transition-shadow hover:shadow-float">
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    unoptimized={item.image.startsWith("/productos/")}
-                    className="object-cover transition-transform duration-700 ease-luxury group-hover:scale-[1.03]"
-                    sizes="(max-width: 768px) 88vw, 42vw"
-                  />
-                </div>
+                {imageMode === "product" || isProductAsset(item.image) ? (
+                  <ProductGalleryMedia src={item.image} alt={item.title} />
+                ) : (
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover object-center transition-transform duration-700 ease-luxury group-hover:scale-[1.03]"
+                      sizes="(max-width: 768px) 88vw, 42vw"
+                    />
+                  </div>
+                )}
                 <div className="flex flex-1 flex-col p-6 md:p-7">
                   <h4 className="font-display text-xl tracking-[-0.02em] text-ink md:text-2xl">
                     {item.title}
@@ -198,5 +247,5 @@ export function ProductsGallery4({ items, activeCategory }: ProductsGallery4Prop
     [filtered],
   );
 
-  return <Gallery4 items={galleryItems} />;
+  return <Gallery4 items={galleryItems} imageMode="product" />;
 }
