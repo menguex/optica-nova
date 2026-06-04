@@ -46,12 +46,15 @@ function ProductGalleryMedia({
 }) {
   return (
     <div
-      className="product-gallery-media relative overflow-hidden"
+      className="product-gallery-media relative overflow-hidden rounded-[2rem] sm:rounded-[2.25rem]"
       style={{ aspectRatio: "3 / 4" }}
     >
       <div className="product-gallery-media__backdrop" aria-hidden />
       <div className="product-gallery-media__vignette" aria-hidden />
-      <div className="absolute inset-0 ring-1 ring-inset ring-line/20" aria-hidden />
+      <div
+        className="absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-line/20"
+        aria-hidden
+      />
       <div className="product-gallery-media__frame">
         <Image
           src={src}
@@ -134,9 +137,10 @@ export function Gallery4({
   if (items.length === 0) return null;
 
   const showNav = items.length > 1 && snapCount > 1;
+  const isProduct = imageMode === "product";
 
   return (
-    <div ref={rootRef} className="w-full">
+    <div ref={rootRef} className={cn("w-full", isProduct && "product-gallery-root")}>
       <Carousel
         setApi={setCarouselApi}
         opts={{
@@ -158,9 +162,19 @@ export function Gallery4({
               <p className="mt-3 text-base text-muted">{description}</p>
             ) : null}
           </div>
-          <div className={cn("flex shrink-0 gap-2", !showNav && "hidden")}>
-            <CarouselPrevious />
-            <CarouselNext />
+          <div className={cn("flex shrink-0 gap-3", !showNav && "hidden")}>
+            <CarouselPrevious
+              className={cn(
+                isProduct &&
+                  "h-12 w-12 rounded-full border-line/80 bg-paper shadow-soft hover:shadow-float",
+              )}
+            />
+            <CarouselNext
+              className={cn(
+                isProduct &&
+                  "h-12 w-12 rounded-full border-line/80 bg-paper shadow-soft hover:shadow-float",
+              )}
+            />
           </div>
         </div>
 
@@ -180,7 +194,14 @@ export function Gallery4({
                   : "basis-[88%] pl-4 sm:basis-[70%] md:basis-[55%] md:pl-6 lg:basis-[42%]",
               )}
             >
-              <article className="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-line bg-paper shadow-soft transition-shadow hover:shadow-float">
+              <article
+                className={cn(
+                  "group flex h-full min-w-0 flex-col overflow-hidden border bg-paper shadow-soft transition-[box-shadow,transform] duration-500 ease-luxury hover:shadow-float",
+                  isProduct
+                    ? "product-gallery-card rounded-[2.5rem] border-line/70 p-2.5 sm:p-3"
+                    : "rounded-2xl border-line",
+                )}
+              >
                 {imageMode === "product" || isProductAsset(item.image) ? (
                   <ProductGalleryMedia
                     src={item.image}
@@ -198,7 +219,14 @@ export function Gallery4({
                     />
                   </div>
                 )}
-                <div className="flex flex-1 flex-col p-5 md:p-6">
+                <div
+                  className={cn(
+                    "flex flex-1 flex-col",
+                    isProduct
+                      ? "product-gallery-card__body m-1 rounded-[1.75rem] bg-cream/50 p-5 md:p-6"
+                      : "p-5 md:p-6",
+                  )}
+                >
                   <h4 className="font-display text-lg tracking-[-0.02em] text-ink md:text-xl">
                     {item.title}
                   </h4>
@@ -207,7 +235,12 @@ export function Gallery4({
                   </p>
                   <Link
                     href={item.href ?? "/reservar"}
-                    className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-ink transition-colors group-hover:text-optic"
+                    className={cn(
+                      "mt-5 inline-flex items-center justify-center gap-2 text-sm font-medium transition-colors",
+                      isProduct
+                        ? "rounded-full border border-line bg-paper px-5 py-3 text-ink shadow-soft hover:border-optic/40 hover:text-optic"
+                        : "text-ink group-hover:text-optic",
+                    )}
                   >
                     Consultar disponibilidad
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -220,7 +253,12 @@ export function Gallery4({
       </Carousel>
 
       {snapCount > 1 ? (
-        <div className="mt-8 flex justify-center gap-2">
+        <div
+          className={cn(
+            "mt-8 flex justify-center gap-2.5",
+            isProduct && "rounded-full border border-line/60 bg-paper/80 px-4 py-3 shadow-soft",
+          )}
+        >
           {Array.from({ length: snapCount }, (_, index) => (
             <button
               key={index}
@@ -229,10 +267,11 @@ export function Gallery4({
               aria-current={currentSlide === index ? "true" : undefined}
               onClick={() => carouselApi?.scrollTo(index)}
               className={cn(
-                "h-2 rounded-full transition-all duration-300",
+                "rounded-full transition-all duration-300",
+                isProduct ? "h-2.5" : "h-2",
                 currentSlide === index
-                  ? "w-6 bg-optic"
-                  : "w-2 bg-line hover:bg-muted",
+                  ? cn("bg-optic", isProduct ? "w-8" : "w-6")
+                  : cn("bg-line hover:bg-muted", isProduct ? "w-2.5" : "w-2"),
               )}
             />
           ))}

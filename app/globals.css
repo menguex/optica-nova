@@ -580,7 +580,12 @@
     }
   }
 
-  /* Productos — escenario tipo vitrina + foto completa */
+  /* Productos — curvas suaves en vitrina y tarjetas */
+  .product-gallery-media__backdrop,
+  .product-gallery-media__vignette {
+    border-radius: inherit;
+  }
+
   .product-gallery-media__backdrop {
     position: absolute;
     inset: 0;
@@ -601,6 +606,24 @@
       transparent 68%
     );
     pointer-events: none;
+  }
+
+  .product-gallery-card {
+    border-radius: 2.5rem;
+  }
+
+  .product-gallery-card__body {
+    border-radius: 1.75rem;
+  }
+
+  .productos-gallery-shell {
+    border-radius: 2.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .productos-gallery-shell {
+      border-radius: 3rem;
+    }
   }
 
   .product-gallery-media__frame {

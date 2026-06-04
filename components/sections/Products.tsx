@@ -39,7 +39,7 @@ export function Products() {
           className="mb-10"
         />
 
-        <div className="mb-10 flex flex-wrap justify-center gap-2">
+        <div className="productos-filters mb-10 flex flex-wrap justify-center gap-2 rounded-[2rem] border border-line/60 bg-paper/80 p-2 shadow-soft sm:gap-2.5 sm:rounded-full sm:p-2">
           {productGalleryCategories.map((cat) => (
             <button
               key={cat.id}
@@ -47,10 +47,10 @@ export function Products() {
               onClick={() => setActiveCategory(cat.id)}
               aria-pressed={activeCategory === cat.id}
               className={cn(
-                "rounded-full border px-4 py-2 text-sm font-medium transition-colors",
+                "rounded-full border px-5 py-2.5 text-sm font-medium transition-all duration-300",
                 activeCategory === cat.id
-                  ? "border-cta bg-cta text-cta-fg"
-                  : "border-line bg-paper text-muted hover:border-foreground/30 hover:text-foreground",
+                  ? "border-cta bg-cta text-cta-fg shadow-soft"
+                  : "border-transparent bg-transparent text-muted hover:bg-cream hover:text-foreground",
               )}
             >
               {cat.label}
@@ -58,6 +58,7 @@ export function Products() {
           ))}
         </div>
 
+        <div className="productos-gallery-shell overflow-hidden rounded-[2.5rem] border border-line/70 bg-gradient-to-b from-paper via-paper to-cream/90 p-4 shadow-soft sm:rounded-[3rem] sm:p-6 md:p-8">
         <Gallery4
           key={activeCategory}
           imageMode="product"
@@ -71,6 +72,7 @@ export function Products() {
             href: "/reservar",
           }))}
         />
+        </div>
       </PageContainer>
     </section>
   );
