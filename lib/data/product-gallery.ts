@@ -1,4 +1,3 @@
-import { pexels } from "@/lib/pexels";
 import {
   frameProducts,
   lensMaterials,
@@ -13,36 +12,38 @@ export type ProductGalleryItem = {
   category: "armazones" | "tratamientos" | "materiales";
 };
 
-/** Solo producto y equipo clínico — sin retratos de personas. */
+const productImage = (filename: string) => `/productos/${filename}`;
+
+/** Fotos reales de Óptica Salud Visual (carpeta «imagenes de armazon»). */
 const frameImagesByProduct: string[] = [
-  pexels(28295159, 1200), // Premium
-  pexels(5842846, 1200), // Gama alta
-  pexels(5996744, 1200), // Línea básica
-  pexels(11624140, 1200), // Seguridad
-  pexels(3997718, 1200), // Niños flexibles
-  pexels(7534108, 1200), // Rimless
-  pexels(1139793, 1200), // Sol
-  pexels(831430, 1200), // Lectura
-  pexels(85370, 1200), // Filtro azul — detalle de lente
-  pexels(978808, 1200), // Clip-on
+  productImage("premium-marcas.jpeg"),
+  productImage("gama-alta.jpeg"),
+  productImage("linea-basica.jpeg"),
+  productImage("antiparras-seguridad.jpeg"),
+  productImage("ninos-flexibles.jpeg"),
+  productImage("al-aire.jpeg"),
+  productImage("sol-adulto.jpeg"),
+  productImage("lectura.jpeg"),
+  productImage("descanso-filtro-azul.jpeg"),
+  productImage("clip-on.jpeg"),
 ];
 
 const treatmentImagesByProduct: string[] = [
-  pexels(5842846, 1200),
-  pexels(85370, 1200), // Filtro azul — detalle lente
-  pexels(978808, 1200),
-  pexels(5752311, 1200), // Filtro ámbar — conducción nocturna
-  pexels(29173452, 1200),
-  pexels(5996744, 1200),
-  pexels(5752241, 1200),
-  pexels(978808, 1200),
-  pexels(5752241, 1200),
+  productImage("tratamiento-antirreflejo.jpeg"),
+  productImage("tratamiento-filtro-azul.jpeg"),
+  productImage("tratamiento-fotocromatico.jpeg"),
+  productImage("tratamiento-filtro-ambar.jpeg"),
+  productImage("tratamiento-polarizado.jpeg"),
+  productImage("tratamiento-adelgazado.jpeg"),
+  productImage("tratamiento-extra-adelgazado.jpeg"),
+  productImage("tratamiento-filtro-uv.jpeg"),
+  productImage("tratamiento-antiempanante.jpeg"),
 ];
 
 const materialImagesByProduct: string[] = [
-  pexels(5996744, 1200),
-  pexels(5996744, 1200),
-  pexels(11624140, 1200), // Policarbonato — resistencia / seguridad
+  productImage("material-mineral.jpeg"),
+  productImage("material-organico.jpeg"),
+  productImage("material-policarbonato.jpeg"),
 ];
 
 function toItems(
