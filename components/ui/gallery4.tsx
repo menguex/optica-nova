@@ -50,7 +50,8 @@ function ProductGalleryMedia({
         alt={alt}
         fill
         unoptimized
-        className="object-contain object-center transition-transform duration-700 ease-luxury group-hover:scale-[1.02]"
+        style={{ objectFit: "contain", objectPosition: "center" }}
+        className="transition-transform duration-700 ease-luxury group-hover:scale-[1.02]"
         sizes="(max-width: 640px) 86vw, (max-width: 1024px) 45vw, 320px"
       />
     </div>
