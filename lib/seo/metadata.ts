@@ -77,6 +77,9 @@ export const rootMetadata: Metadata = {
     apple: [{ url: "/logo-salud-visual.png", type: "image/png" }],
   },
   category: "health",
+  verification: {
+    google: "vlp7Bw37iTbtptXkXgvZuHocjFu-kVlmn8eYT3",
+  },
 };
 
 export const homeMetadata: Metadata = {
