@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CollectionDetail } from "@/components/sections/CollectionDetail";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/seo/json-ld";
+import { collectionMetadata } from "@/lib/seo/metadata";
 import {
   getAllCollectionSlugs,
   getCollectionBySlug,
 } from "@/lib/data/collections";
-import { brand } from "@/lib/data/brand";
 
 type PageProps = {
   params: { slug: string };
@@ -17,17 +19,28 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: PageProps): Metadata {
   const collection = getCollectionBySlug(params.slug);
-  if (!collection) return { title: brand.name };
+  if (!collection) return {};
 
-  return {
-    title: `${collection.name} — ${brand.name}`,
-    description: collection.overview,
-  };
+  return collectionMetadata({
+    name: collection.name,
+    overview: collection.overview,
+    slug: collection.slug,
+  });
 }
 
 export default function CollectionPage({ params }: PageProps) {
   const collection = getCollectionBySlug(params.slug);
   if (!collection) notFound();
 
-  return <CollectionDetail collection={collection} />;
+  return (
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Inicio", path: "/" },
+          { name: collection.name, path: `/colecciones/${collection.slug}` },
+        ])}
+      />
+      <CollectionDetail collection={collection} />
+    </>
+  );
 }

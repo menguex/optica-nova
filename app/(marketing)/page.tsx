@@ -1,4 +1,8 @@
+import type { Metadata } from "next";
 import dynamic from "next/dynamic";
+import { homeMetadata } from "@/lib/seo/metadata";
+
+export const metadata: Metadata = homeMetadata;
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
 import { WhyUs } from "@/components/sections/WhyUs";

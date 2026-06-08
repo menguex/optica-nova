@@ -8,7 +8,9 @@ import { WhatsAppFab } from "@/components/layout/WhatsAppFab";
 import { BodyScrollUnlock } from "@/components/ui/BodyScrollUnlock";
 import { OpticSparkles } from "@/components/ui/OpticSparkles";
 import { ThemeScript } from "@/components/ThemeScript";
-import { brand } from "@/lib/data/brand";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { localBusinessJsonLd, webSiteJsonLd } from "@/lib/seo/json-ld";
+import { rootMetadata } from "@/lib/seo/metadata";
 import "./globals.css";
 
 const sans = Plus_Jakarta_Sans({
@@ -18,17 +20,7 @@ const sans = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: `${brand.name} — Ver el mundo con precisión`,
-  description:
-    "Centro óptico de salud visual en Ovalle. Exámenes clínicos, armazones, cristales, FONASA y particular. Coquimbo #177.",
-  openGraph: {
-    title: brand.name,
-    description: "Ver el mundo con precisión.",
-    type: "website",
-  },
-  metadataBase: new URL(brand.siteUrl),
-};
+export const metadata: Metadata = rootMetadata;
 
 export default function RootLayout({
   children,
@@ -42,6 +34,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-background text-foreground antialiased">
+        <JsonLd data={[localBusinessJsonLd(), webSiteJsonLd()]} />
         <ThemeScript />
         <BodyScrollUnlock />
         <a
